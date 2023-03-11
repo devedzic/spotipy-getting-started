@@ -50,6 +50,7 @@ def get_tracks_data(playlist_id: str, env_file_path: str) -> list:
     tracks = get_all_tracks_from_playlist(playlist_id, env_file_path)
     tracks_data = [(t['track']['uri'],
                     t['track']['name'].split(' - Remastered')[0].split(' / Remastered')[0],
+                    t['track']['album']['name'].split(' (Remastered)')[0],
                     t['track']['popularity'],
                     int(round(t['track']['duration_ms'] / 1000, 0))) for t in tracks]
     return tracks_data
@@ -96,6 +97,7 @@ def get_tracks_df(playlist_id: str, env_file_path: str) -> pd.DataFrame:
                         columns=[
                             'URI',
                             'Title',
+                            'Album',
                             'Popularity',
                             'Duration',
                             'Key',
